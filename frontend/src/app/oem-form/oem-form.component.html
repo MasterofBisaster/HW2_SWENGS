@@ -1,0 +1,37 @@
+<form [formGroup]="oemFormGroup" class="oem-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="name" required>
+    <mat-hint align="end">The name of the OEM</mat-hint>
+    <mat-error *ngIf="oemFormGroup.controls.name.hasError('required')">Name is required</mat-error>
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput type="text" placeholder="CEO" formControlName="ceo" required>
+    <mat-hint align="end">The CEO of the OEM</mat-hint>
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Count of Employees" formControlName="employeeCount">
+    <mat-hint align="end">The count of employees of the OEM</mat-hint>
+  </mat-form-field>
+  <br/>
+  <app-date placeholder="Date of Founding" formControlName="dateOfFounding" hint="Foundation date of OEM"
+            [required]="true">
+  </app-date>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Stock Index Name" formControlName="stockIndexName" required>
+    <mat-hint align="end">The Stock index name of the OEM</mat-hint>
+    <mat-error *ngIf="oemFormGroup.controls.stockIndexName.hasError('required')">Stock Index name is required</mat-error>
+  </mat-form-field>
+  <br/>
+
+
+  <br/>
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!oemFormGroup.valid" (click)="createOem()">
+      <span *ngIf="!oemFormGroup.controls.id.value">Create</span>
+      <span *ngIf="oemFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+</form>

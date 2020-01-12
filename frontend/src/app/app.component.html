@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <button mat-button [matMenuTriggerFor]="cpuMenu">CPU</button>
+  <mat-menu #cpuMenu="matMenu">
+    <button mat-menu-item routerLink="cpu-list">List CPUs</button>
+    <button mat-menu-item routerLink="cpu-form">Create CPU</button>
+    <button mat-menu-item routerLink="oem-list">List OEMs</button>
+    <button mat-menu-item routerLink="oem-form">Create OEM</button>
+    <app-logout *ngIf="isLoggedIn"></app-logout>
+    <button mat-menu-item routerLink="login" *ngIf="isLoggedIn == false">Login</button>
+  </mat-menu>
+</mat-toolbar>
+
+
+
+<router-outlet></router-outlet>

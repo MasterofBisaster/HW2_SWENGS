@@ -1,0 +1,74 @@
+<form [formGroup]="cpuFormGroup" class="cpu-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="name" required>
+    <mat-hint align="end">Name of the CPU</mat-hint>
+   <mat-error *ngIf="cpuFormGroup.controls.name.hasError('required')">Name is required</mat-error>
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Price" formControlName="price">
+    <mat-hint align="end">The price of the CPU</mat-hint>
+  </mat-form-field>
+
+  <br/>
+
+  <mat-form-field>
+    <mat-select placeholder="Coremultiplier" formControlName="coremultiplier" required>
+      <mat-option [value]="coremultiplier.key" *ngFor="let coremultiplier of coremultiplierService.coremultiplierNames | keyvalue">{{coremultiplier.value}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">Coremultiplier of the CPU</mat-hint>
+    <mat-error *ngIf="cpuFormGroup.controls.coremultiplier.hasError('required')">Core Multiplier is required</mat-error>
+
+  </mat-form-field>
+
+  <p-dialog header="Core Multiplier" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
+            [maximizable]="true" [baseZIndex]="10000">
+    <p>Clock multipliers on many modern processors are fixed; it is usually not possible to change them.
+      Some versions of processors have clock multipliers unlocked; that is, they can be "overclocked" by increasing the clock multiplier setting in the motherboard's BIOS setup program.
+      Some CPU engineering samples may also have the clock multiplier unlocked.
+      Many Intel qualification samples have maximum clock multiplier locked: these CPUs may be underclocked (run at lower frequency), but they cannot be overclocked by increasing clock multiplier higher than intended by CPU design.
+      While these qualification samples and majority of production microprocessors cannot be overclocked by increasing their clock multiplier, they still can be overclocked by using a different technique: by increasing FSB frequency.</p>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Got it!"></button>
+    </p-footer>
+  </p-dialog>
+
+  <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Core multiplier"></button>
+
+  <br/>
+  <app-date placeholder="Release date" formControlName="release_date" hint="The release date of the CPU"
+            [required]="true">
+  </app-date>
+
+  <br/>
+
+  <mat-form-field>
+    <mat-select placeholder="OEM" formControlName="manufacturer">
+      <mat-option [value]="oemOption.id" *ngFor="let oemOption of oemOptions">{{oemOption.name}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">OEM of the cpu</mat-hint>
+  </mat-form-field>
+
+  <br/>
+
+  <mat-form-field>
+    <mat-label>Memory Support</mat-label>
+    <mat-select placeholder="Memory Support" formControlName="memorySupport" multiple>
+      <mat-option *ngFor="let memoryTypeOption of memoryTypeOptions" [value]="memoryTypeOption.id">{{memoryTypeOption.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br/>
+  <mat-slide-toggle formControlName="status">Active</mat-slide-toggle>
+  <br/>
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!cpuFormGroup.valid" (click)="createCPU()">
+      <span *ngIf="!cpuFormGroup.controls.id.value">Create</span>
+      <span *ngIf="cpuFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+
+  <br/>
+
+
+</form>

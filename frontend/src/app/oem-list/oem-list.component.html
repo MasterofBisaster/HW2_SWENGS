@@ -1,0 +1,28 @@
+<table mat-table [dataSource]="oems">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let oem">{{oem.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateOfFounding">
+    <th mat-header-cell *matHeaderCellDef>Date of Founding</th>
+    <td mat-cell *matCellDef="let oem">{{oem.dateOfFounding}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ceo">
+    <th mat-header-cell *matHeaderCellDef>Name of CEO</th>
+    <td mat-cell *matCellDef="let oem">{{oem.ceo}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let oem">
+      <button mat-button [routerLink]="'/oem-form/' + oem.id">Edit</button>
+      <button mat-button (click)="deleteOem(oem)" *ngIf="userService.hasPermission('swengs_hw_app.delete_oem')">Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
